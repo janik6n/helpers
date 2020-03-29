@@ -1,8 +1,8 @@
 # Helpers
 
-Various CLI helper tools for the daily life on the Terminal.
+[![license](https://img.shields.io/github/license/janikarh/helpers)](https://github.com/janikarh/helpers/blob/master/LICENSE)
 
-![project image](images/construction.svg)
+Various CLI helper tools for the daily life on the Terminal.
 
 ## Prerequisites
 

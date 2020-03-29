@@ -18,7 +18,7 @@ This has been built for and tested on `macOS catalina 10.15.4` and `zsh`. This m
 Installation, so to speak.
 
 Add the following to your `.zshrc`:
-`alias scaffold=". [path-to-the-location]/jetzt2/scaffold.sh"`
+`alias scaffold=". [path-to-the-location]/scaffold.sh"`
 
 After sourcing with `source ~/.zshrc`, simply run `scaffold` and follow the prompt.
 

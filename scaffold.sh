@@ -65,6 +65,7 @@ function install_python_baseline() {
 function unset_variables() {
   unset project_name
   unset project_type
+  unset ask_result
 }
 
 function end_on_error() {
@@ -104,6 +105,7 @@ function scaffold_python_basic() {
       echo "Successfully switched to project dir."
       create_python_venv
       install_python_baseline
+      cp -r "$HELPERS_HOME/templates/Python_Basic/" .
       return 0
     else
       echo "${RED}Something went wrong while creating or changing to the project dir $2 in $1${NC}"
@@ -117,10 +119,43 @@ function scaffold_python_basic() {
   return 1
 }
 
+function ask_yes_no() {
+  # Ask for yes or no, return 'yes' or 'no'
+  list=("yes" "no")
+
+  select var in $list; do
+    if [ x"$var" != x"" ]; then
+      echo $var
+    fi
+  return $var
+  done
+}
+
+function init_git() {
+  echo "${CYAN}\nInitialize git repository?${NC}"
+  ask_result=$(ask_yes_no)
+  if [[ "$ask_result" == "yes" ]]; then
+    echo "${GREEN}Initializing git repository ...${NC}"
+    cp "$HELPERS_HOME/templates/gitignore" ./.gitignore
+    git init
+    git add .
+    git commit -m "Initial commit done by scaffolding."
+  fi
+
+  unset ask_result
+}
+
+if [[ -v HELPERS_HOME ]]; then
+  echo "${GREEN}HELPERS_HOME is set: $HELPERS_HOME${NC}"
+else
+  echo "${RED}Environment variable HELPERS_HOME is not set.${NC}"
+  return 1
+fi
+
 echo "${GREEN}Start scaffolding.\n${NC}"
 
 # Ask for project name
-vared -p "Project name? " -c project_name
+vared -p "${CYAN}Project name? ${NC}" -c project_name
 project_name=$(echo "$project_name" | sed -e 's/[^A-Za-z0-9_-]/_/g')
 echo "project_name (with allowed naming scheme): $project_name"
 
@@ -137,12 +172,14 @@ else
     echo "Dir $project_name does not exist. Moving to next step ..."
 
     # Ask for project type
+    echo "\n${CYAN}Which kind of project you want to scaffold?${NC}"
     project_type=$(select_project_type)
     echo "project_type: $project_type"
 
     # Scaffold selected project type with entered name
     if [[ "$project_type" == "Python_Basic" ]]; then
       scaffold_python_basic $(pwd) $project_name
+      init_git $(pwd) $project_name
       retvalue=$?
       # echo "RETVAL2: $retvalue"
       if [[ "$retvalue" == 0 ]]; then
@@ -150,6 +187,9 @@ else
       else
         end_on_error
       fi
+    elif [[ "$project_type" == "Python_AWS_Serverless" ]]; then
+      echo "\n${RED}Waiting for implementation.${NC}"
+      end_on_error
     fi
   fi
 fi

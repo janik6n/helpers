@@ -4,15 +4,17 @@
 
 Various CLI helper tools for the daily life on the Terminal.
 
+[A changelog](CHANGELOG.md) is maintained.
+
 ## Prerequisites
 
-This has been built for and tested on `macOS catalina 10.15.4` and `zsh`. This might work on other environments too, or not.
+This has been built for and tested on `macOS catalina 10.15.4`, `zsh` and `Python3.6+`. This might work on other environments too, or not.
 
 **Important:** In your `~/.zshrc` set a new environment variable `HELPERS_HOME` (`export HELPERS_HOME="[full-path-to-the-helpers-location-without-trailing-slash]"`).
 
 ## Helpers available
 
-1. [Scaffold new project](#scaffold-new-project)
+1. [Scaffold new Project](#scaffold-new-project)
 
 
 ## Scaffold new Project

@@ -1,5 +1,7 @@
 #!/usr/local/bin/zsh
 
+SCAFFOLD_VERSION="0.1.0"
+
 RED="`tput setaf 1`"
 GREEN="`tput setaf 2`"
 CYAN="`tput setaf 6`"
@@ -140,19 +142,20 @@ function init_git() {
     git init
     git add .
     git commit -m "Initial commit done by scaffolding."
+    git status
   fi
 
   unset ask_result
 }
 
 if [[ -v HELPERS_HOME ]]; then
-  echo "${GREEN}HELPERS_HOME is set: $HELPERS_HOME${NC}"
+  # echo "${GREEN}HELPERS_HOME is set: $HELPERS_HOME${NC}"
+  echo "${GREEN}Start scaffolding (running v$SCAFFOLD_VERSION).\n${NC}"
 else
   echo "${RED}Environment variable HELPERS_HOME is not set.${NC}"
   return 1
 fi
 
-echo "${GREEN}Start scaffolding.\n${NC}"
 
 # Ask for project name
 vared -p "${CYAN}Project name? ${NC}" -c project_name

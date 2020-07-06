@@ -1,6 +1,6 @@
 #!/usr/local/bin/zsh
 
-SCAFFOLD_VERSION="0.1.0"
+SCAFFOLD_VERSION="0.1.1"
 
 RED="`tput setaf 1`"
 GREEN="`tput setaf 2`"
@@ -53,11 +53,11 @@ function log_pkg_version() {
 
 function install_python_baseline() {
   echo "${GREEN}Installing Python baseline ...${NC}"
-  python -m pip install --upgrade pip
+  python3 -m pip install --upgrade pip
   log_pkg_version "pip" "prod"
-  python -m pip install --upgrade setuptools
+  python3 -m pip install --upgrade setuptools
   log_pkg_version "setuptools" "prod"
-  python -m pip install flake8
+  python3 -m pip install flake8
   log_pkg_version "flake8" "dev"
 
   # python -m pip install python-dateutil

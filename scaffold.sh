@@ -22,7 +22,7 @@ function create_project_dir() {
 
 function create_python_venv() {
   echo "${GREEN}Creating and activating new Python venv ...${NC}"
-  python3 -m venv venv
+  python -m venv venv
   source 'venv/bin/activate'
 }
 
@@ -53,11 +53,14 @@ function log_pkg_version() {
 
 function install_python_baseline() {
   echo "${GREEN}Installing Python baseline ...${NC}"
-  python3 -m pip install --upgrade pip
+  # python -m pip install --upgrade pip
+  pip install --upgrade pip
   log_pkg_version "pip" "prod"
-  python3 -m pip install --upgrade setuptools
+  # python -m pip install --upgrade setuptools
+  pip install --upgrade setuptools
   log_pkg_version "setuptools" "prod"
-  python3 -m pip install flake8
+  # python -m pip install flake8
+  pip install flake8
   log_pkg_version "flake8" "dev"
 
   # python -m pip install python-dateutil

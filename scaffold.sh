@@ -1,6 +1,6 @@
 #!/usr/local/bin/zsh
 
-SCAFFOLD_VERSION="0.1.1"
+SCAFFOLD_VERSION="0.2.0"
 
 RED="`tput setaf 1`"
 GREEN="`tput setaf 2`"
@@ -53,13 +53,16 @@ function log_pkg_version() {
 
 function install_python_baseline() {
   echo "${GREEN}Installing Python baseline ...${NC}"
-  # python -m pip install --upgrade pip
+  touch requirements.txt
+  touch requirements-dev.txt
+
   pip install --upgrade pip
-  log_pkg_version "pip" "prod"
-  # python -m pip install --upgrade setuptools
+  # log_pkg_version "pip" "prod"
+  log_pkg_version "pip" "dev"
+
   pip install --upgrade setuptools
-  log_pkg_version "setuptools" "prod"
-  # python -m pip install flake8
+  log_pkg_version "setuptools" "dev"
+
   pip install flake8
   log_pkg_version "flake8" "dev"
 
@@ -142,7 +145,7 @@ function init_git() {
   if [[ "$ask_result" == "yes" ]]; then
     echo "${GREEN}Initializing git repository ...${NC}"
     cp "$HELPERS_HOME/templates/gitignore" ./.gitignore
-    git init
+    git init --initial-branch=main
     git add .
     git commit -m "Initial commit done by scaffolding."
     git status
